@@ -18,7 +18,7 @@ RUN yum -y install \
 ENV PATH="${PATH}:/opt/R/${R_VERSION}/bin/"
 
 # the lambda handler
-COPY lambda.py ${LAMBDA_TASK_ROOT}
+COPY . ${LAMBDA_TASK_ROOT}
 
 CMD ["lambda.handler"]
 
