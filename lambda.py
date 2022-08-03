@@ -1,2 +1,5 @@
+import subprocess
+
+
 def handler(event, context):
-    print(event)
+    subprocess.run(["bash", "-c", "./hello-world.R"], check=True)
