@@ -1,7 +1,15 @@
 #!/usr/bin/env Rscript
 
+source("dependencies.R")
+
+argument_parser <- ArgumentParser()
+argument_parser$add_argument("--names-to-greet", type = "character", nargs = "+")
+args <- argument_parser$parse_arguments()
+
 echo <- function(string) {
   cat(paste0(string, "\n"))
 }
 
-echo("Hello world")
+for (name_to_greet in args$names_to_greet){
+  echo(paste0("Hello ", name_to_greet, "!"))
+}

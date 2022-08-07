@@ -13,7 +13,6 @@ packages_to_require <- c(
   "argparse"
 )
 
-for (i in seq_along(packages_to_require)) {
-  require_package_or_stop(packages_to_require[i])
+for (package_to_require in packages_to_require) {
+  require_package_or_stop(package_to_require)
 }
-
