@@ -3,5 +3,5 @@ FROM public.ecr.aws/lambda/python:3.9
 # the lambda handler
 COPY . ${LAMBDA_TASK_ROOT}
 
-CMD ["lambda.handler"]
+CMD ["lambda_handler.handler"]
 
