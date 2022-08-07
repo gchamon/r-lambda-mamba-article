@@ -1,5 +1,6 @@
 FROM public.ecr.aws/lambda/python:3.9
 
+# install R
 ENV R_VERSION=4.2.1
 
 RUN yum -y install \
@@ -13,7 +14,6 @@ RUN yum -y install \
   && rm R-${R_VERSION}-1-1.x86_64.rpm \
   && yum clean all \
   && rm -rf /var/cache/yum
-
 
 ENV PATH="${PATH}:/opt/R/${R_VERSION}/bin/"
 
@@ -37,7 +37,7 @@ RUN source $MICROMAMBA_INSTALL_FOLDER/.bashrc \
     && micromamba clean --all \
     && Rscript "${LAMBDA_TASK_ROOT}/dependencies.R"
 
-# the lambda handler
+# add the lambda handler code
 COPY . ${LAMBDA_TASK_ROOT}
 
 CMD ["lambda_handler.handler"]
