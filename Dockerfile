@@ -17,6 +17,26 @@ RUN yum -y install \
 
 ENV PATH="${PATH}:/opt/R/${R_VERSION}/bin/"
 
+# install micromamba
+ENV MICROMAMBA_VERSION=0.25.0
+ENV MICROMAMBA_INSTALL_FOLDER=/opt/micromamba
+ENV PATH="$MICROMAMBA_INSTALL_FOLDER/bin:${PATH}"
+
+RUN mkdir --parents $MICROMAMBA_INSTALL_FOLDER \
+    && curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/$MICROMAMBA_VERSION | \
+        tar -xvj --directory $MICROMAMBA_INSTALL_FOLDER bin/micromamba \
+    && micromamba shell init -s bash -p $MICROMAMBA_INSTALL_FOLDER/env \
+    && echo micromamba activate >> ~/.bashrc \
+    && cp ~/.bashrc $MICROMAMBA_INSTALL_FOLDER
+
+# install R dependencies with micromamba
+COPY dependencies.R ${LAMBDA_TASK_ROOT}
+RUN source $MICROMAMBA_INSTALL_FOLDER/.bashrc \
+    && micromamba install --channel anaconda --channel conda-forge --channel r \
+        r-argparse \
+    && micromamba clean --all \
+    && Rscript "${LAMBDA_TASK_ROOT}/dependencies.R"
+
 # the lambda handler
 COPY . ${LAMBDA_TASK_ROOT}
 
