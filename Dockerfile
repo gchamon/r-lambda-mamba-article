@@ -40,5 +40,5 @@ RUN source $MICROMAMBA_INSTALL_FOLDER/.bashrc \
 # the lambda handler
 COPY . ${LAMBDA_TASK_ROOT}
 
-CMD ["lambda.handler"]
+CMD ["lambda_handler.handler"]
 
