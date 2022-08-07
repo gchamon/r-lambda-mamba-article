@@ -20,5 +20,5 @@ ENV PATH="${PATH}:/opt/R/${R_VERSION}/bin/"
 # the lambda handler
 COPY . ${LAMBDA_TASK_ROOT}
 
-CMD ["lambda.handler"]
+CMD ["lambda_handler.handler"]
 
