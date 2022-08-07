@@ -5,7 +5,7 @@ require_package_or_stop <- function(package_to_require) {
     require(package_to_require, character.only = TRUE, quietly = TRUE)
   ))
   if (!result) {
-    stop(paste0("Fail to load", package_to_require))
+    stop(paste0("Fail to load ", package_to_require))
   }
 }
 
